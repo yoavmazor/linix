@@ -29,6 +29,7 @@ int main() {
     
     printf("process name, PID, cwd, binary path, command line\n\n");
 
+    // iterate through all the files in the directory
     while ((entry = readdir(dir)) != NULL) {
         entry_name = entry->d_name;
         
@@ -50,13 +51,16 @@ int main() {
         CHECK_TRUE(cwd_path != NULL);
         CHECK_TRUE(binary_name_path != NULL);
 
+        // read the needed resources
         CHECK_AND_PASS(read_string_from_file(comm_path, &process_name));
         CHECK_AND_PASS(read_string_from_file(cmdline_path, &cmd_line));
         CHECK_AND_PASS(read_link_path(cwd_path, &cwd));
         CHECK_AND_PASS(read_link_path(binary_name_path, &binary_path));
 
+        // print formated output after converting NULL strings
         printf("%s %lu %s %s %s\n\n", convert_null_to_empty(process_name), pid, convert_null_to_empty(cwd), convert_null_to_empty(binary_path), convert_null_to_empty(cmd_line));        
 
+        // free all allocated memory
         free(proc_entry_path);
         free(comm_path);
         free(cmdline_path);

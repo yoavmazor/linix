@@ -40,7 +40,7 @@ ERROR_STATUS read_string_from_file(const char* path, char** out) {
     file_str = calloc(file_size + 1, sizeof(char));
     CHECK_TRUE(file_str != NULL);
 
-    CHECK_AND_PASS(read_entire_file(fd, file_str, file_size, &size));
+    CHECK_AND_PASS(read_file(fd, file_str, file_size, &size));
 
     if (file_str[0] == '\0') {
         free(file_str);        
@@ -88,7 +88,7 @@ exit:
     return err;
 }
 
-ERROR_STATUS read_entire_file(int fd, char* buffer, uint64_t size, uint64_t* read_size) {
+ERROR_STATUS read_file(int fd, char* buffer, uint64_t size, uint64_t* read_size) {
     ERROR_STATUS err = NO_ERROR_OCCURRED;    
     uint64_t num_read = 0;
     uint64_t current_num_read = 0;
