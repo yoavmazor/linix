@@ -84,6 +84,10 @@ int main() {
     }    
 
 exit:
+    if (dir != NULL) {
+        closedir(dir);
+    }
+
     free(proc_entry_path);
     free(comm_path);
     free(cmdline_path);
